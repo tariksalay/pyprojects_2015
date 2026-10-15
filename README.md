@@ -1,31 +1,44 @@
-# Python Programming Exercises — Historical Archive
+# Python Programming Exercises
 
-**Python · File Processing · Text Analysis · Data Structures · Algorithms**
+**Python · File processing · Text statistics · Images · Simulation · OOP**
 
-A collection of early Python exercises covering file processing, console workflows, elementary analytics, and programming fundamentals.
+A collection of early standalone Python exercises with focused repairs and tests. The programs cover reversible text transformations, image effects, review-word statistics, console games, and simple simulations.
 
-> **Archive note:** These scripts were written as learning exercises. They are preserved as historical source, **not** as a maintained or validated application library. Some scripts depend on absent input data or contain incomplete logic and will require fixes before they run.
+## What this project demonstrates
 
-## Exercises
+- File/image processing with explicit inputs and outputs.
+- Small object models and state transitions.
+- Edge-case repairs while retaining historical coursework context.
 
-| Script | Subject |
+## Start here
+
+| Read | Use it for |
 | --- | --- |
-| [Amusement Park Tram.py](Amusement%20Park%20Tram.py) | Console-based programming exercise |
-| [Image Filters.py](Image%20Filters.py) | Image processing exercise |
-| [LostLuggage.py](LostLuggage.py) | File/data processing exercise |
-| [Sentiment Analysis.py](Sentiment%20Analysis.py) | Text-based review scoring, averages, and sorting |
-| [SliceProgram.py](SliceProgram.py) | Python sequence processing |
-| [Stocks.py](Stocks.py) | Draft stock-data processing logic |
-| [Transposition.py](Transposition.py) | Transposition-related algorithm exercise |
+| [Project walkthrough](docs/PROJECT_GUIDE.md) | Purpose, workflow, repository map, and a concrete example |
+| [Code and artifact reference](docs/CODE_REFERENCE.md) | Important files, functions, classes, and their responsibilities |
+| [Development guide](docs/DEVELOPMENT.md) | Setup, configuration, commands, tests, and remaining limitations |
 
-## Featured example: text scoring
+## Explore locally
 
-`Sentiment Analysis.py` reads a movie-review text file, matches words to scored reviews, calculates aggregate statistics, and sorts a results table. Its expected input (`movieReviews.txt`) is **not included** in this repository. The function labeled `standard_deviation` currently returns a variance-like calculation, without taking the square root, so statistical output should be reviewed before use.
+Use Python 3.11 or 3.12 in a virtual environment.
 
-## Usage
+```sh
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python Transposition.py input.txt encoded.txt
+python "Image Filters.py" input.png output.png --effect grayscale
+```
 
-Treat each script as a stand-alone learning artifact rather than a guaranteed working command-line tool. Inspect expected local files, Python compatibility, and known defects before trying to run it.
+Other exercises use console prompts; sentiment analysis requires your own review file.
 
-## Portfolio context
+## Validation and scope
 
-This archive illustrates progression in Python fundamentals. See [my profile](https://github.com/tariksalay) for broader analytics and engineering work.
+Five test groups cover Unicode/newline roundtrips, image pixels/modes, sentiment edge cases, tram behavior, and import safety. Every simulation assumption or interactive input path has not been redesigned. The stock exercise remains explicitly incomplete.
+
+
+
+---
+
+[GitHub profile](https://github.com/tariksalay) · [Portfolio](https://tariksalay.github.io/) · [Earlier README](README_HISTORY.md)
+
+The earlier README is preserved as historical context; the guides above describe this branch's implementation.
