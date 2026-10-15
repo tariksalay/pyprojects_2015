@@ -2,21 +2,9 @@ import random
 import sys
 
 def randstart(num_lots):
-    if num_lots == 1: # To let user know lot number have to more than one
-        print("This simulation requires more than one lot")
-        return None, None
-    if num_lots == 2: # In case if user put 2 for number of lots
-        start = random.randint(0,2)
-        if start == 0:
-            dest = 1
-        else:
-            dest = 0
-        return start, dest
-    start = random.randint(0, num_lots-1) # To get random start point
-    dest = random.randint(0, num_lots-1) # To get random destination
-    if start == dest: # If start point is same with the destination, then get new ones.
-        x, dest = randstart(num_lots-1)
-    return start, dest
+    if num_lots < 2:
+        raise ValueError("This simulation requires at least two lots")
+    return tuple(random.sample(range(num_lots), 2))
 
 class ParkingLot:
     def __init__(self, lot_number):
@@ -130,7 +118,7 @@ class Tram:
         self.tourists.append(tourist)
 
     def get_off(self): # To drop off at the current lot, tourist who are arrived their destination
-        for tourist in self.tourists:
+        for tourist in self.tourists[:]:
             if tourist.destination == self.current_lot: 
                 tourist.set_arrived() # To set tourist which are arrived as arrived
                 self.lots[self.current_lot].register_tourist(tourist) 
@@ -138,6 +126,10 @@ class Tram:
                 self.tourists.remove(tourist) # If arrived, remove it from list to make them don't get on again to tram
         
     def move(self):
+        if self.current_lot == 0:
+            self.direction = 1
+        elif self.current_lot == len(self.lots) - 1:
+            self.direction = -1
         old_count = len(self.tourists)
         self.lots[self.current_lot].get_on_tram(self)
         get_on_count = len(self.tourists) - old_count # To see how many tourist picked up
@@ -174,29 +166,34 @@ class Tourist:
     def set_arrived(self):
         self.arrived = True
 
-numOfLots=0 # At first, it is going to change after input
-numOfTourist=0 # It will change too after getting input from user
-proper = False
+def main():
+    numOfLots=0 # At first, it is going to change after input
+    numOfTourist=0 # It will change too after getting input from user
+    proper = False
 
-while not proper: # If it is not a proper input
+    while not proper: # If it is not a proper input
 
-    try:
-        numOfLots = int(input("Enter the number of lots in the simulations ==> ")) 
+        try:
+            numOfLots = int(input("Enter the number of lots in the simulations ==> ")) 
 
-        if numOfLots > 11 or numOfLots < 2 : # To warn user
-            print(" Number of lots must be greater or equal to 2, and less than or equal to 11 ") # To warn user
-            proper = False
-        else:
-            numOfTourist = int(input("Enter the number of tourists waiting on trams. ==>"))
-            if numOfTourist < 0 or numOfTourist > 20: # To warn user
-                print(" Number of tourists must be greater or equal to 0, and less than or equal to 20 ") # To warn user
+            if numOfLots > 11 or numOfLots < 2 : # To warn user
+                print(" Number of lots must be greater or equal to 2, and less than or equal to 11 ") # To warn user
                 proper = False
             else:
-                proper = True
+                numOfTourist = int(input("Enter the number of tourists waiting on trams. ==>"))
+                if numOfTourist < 0 or numOfTourist > 20: # To warn user
+                    print(" Number of tourists must be greater or equal to 0, and less than or equal to 20 ") # To warn user
+                    proper = False
+                else:
+                    proper = True
 
-    except ValueError: # In case of user put float number
-        print("Both of the number of lots and tourists must be an integer")
-        proper = False
+        except ValueError: # In case of user put float number
+            print("Both of the number of lots and tourists must be an integer")
+            proper = False
 
-p = Park(numOfLots,numOfTourist) # To make program run
-p.simulate() # To make program run
+    p = Park(numOfLots,numOfTourist) # To make program run
+    p.simulate() # To make program run
+
+
+if __name__ == "__main__":
+    main()
